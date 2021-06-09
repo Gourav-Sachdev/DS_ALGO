@@ -1,7 +1,5 @@
-
-#include <bits/stdc++.h>
+#include<bits/stdc++.h>
 using namespace std;
-
 
 class Graph{
 
@@ -20,9 +18,11 @@ class Graph{
     {
        // adj[x].push_back({y,weight});
          adj[x].push_back(make_pair(y,weight));
+         adj[y].push_back(make_pair(x,weight));
     }
 
-    void callDijkistras()
+
+    void bfs_01()
     {
 
         // visited array is not needed as dist vertex will do the job of it
@@ -30,19 +30,20 @@ class Graph{
             //priority_queue<pair<int,int>>pq;
 
 
-            priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>>pq;
+            //priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>>pq;
+            deque<pair<int,int>>dq;
 
-            pq.push({0,1});
+            dq.push_back({0,1});
             dist[1]=0;
 
 
-            while(!pq.empty())
+            while(!dq.empty())
             {
-                auto node=pq.top();
+                pair<int,int> node=dq.front();
                 int source_node=node.second;
                 int source_dist= node.first;
 
-                pq.pop();
+                dq.pop_front();
 
                 for(auto nbr:adj[source_node])
                 {
@@ -51,8 +52,16 @@ class Graph{
 
                      if(source_dist+nbr_dist<dist[nbr_node])
                      {
+
                          dist[nbr_node]=source_dist+nbr_dist;
-                         pq.push({dist[nbr_node],nbr_node});
+
+                         if(nbr_dist==1)
+                         {
+                             dq.push_back({dist[nbr_node],nbr_node});
+                         }else{
+                              dq.push_front({dist[nbr_node],nbr_node});
+                         }
+                         
                      }
                 }
 
@@ -68,26 +77,28 @@ class Graph{
 
 };
 
+
+int main()
+{
+    Graph g(6);
+  
+
     
 
-int main() {
-      Graph g(5);
-      g.addEdge(1,2,2);
-       g.addEdge(1,4,1);
-        g.addEdge(2,1,2);
-         g.addEdge(2,5,5);
-          g.addEdge(2,4,3);
-           g.addEdge(3,2,4);
-            g.addEdge(3,4,3);
-             g.addEdge(3,5,1);
-             g.addEdge(4,1,1);
-             g.addEdge(4,3,3);
-             g.addEdge(5,2,5);
-             g.addEdge(5,3,1);
+       g.addEdge(1,2,0);
+       g.addEdge(1,3,1);
+       g.addEdge(2,4,0);
+       g.addEdge(4,3,0);
+       g.addEdge(3,5,1);
+       g.addEdge(5,6,1);
 
-            g.callDijkistras();
- 
-return 0;
+       g.bfs_01();
+
+
+
+
+    return 0;
+
 
 
 }

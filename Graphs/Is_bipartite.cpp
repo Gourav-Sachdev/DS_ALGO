@@ -30,7 +30,7 @@ using namespace std;
                             return false;
                      }
 
-                     else if(nbr!=parent and color==vis[nbr])
+                     else if(nbr!=parent and color==vis[nbr])   //1->2->3->4->5-> 1 is not parent but having same colour
                            return false;
 
                  }

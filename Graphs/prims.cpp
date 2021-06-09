@@ -17,33 +17,42 @@ int main()
         adj[y].push_back({x,wt});
     }
 
-        vector<int>parent(v,-1);
+        
         vector<int>vis(v,0);
-        vector<int>dist(v,INT_MAX);
+       
+        int total_dist=0;
 
         priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>> pq;
 
         pq.push({0,0});
-        parent[0]=-1;
+        
          
 
          while(!pq.empty())
          {
-               int source_dist=pq.top().first;
+               int weight=pq.top().first;
                int source_node=pq.top().second;
-               vis[source_node]=1;
                pq.pop();
 
+                if(vis[source_node]==true)
+                  continue;
+
+                total_dist=total_dist+weight;
+                
+               vis[source_node]=true;
+               
+                 // 0--->{(1,2),(3,6)}  -- Ajacency list format
                for(auto nbr_pair:adj[source_node] )
                {
-                   int nbr_node=nbr_pair.second;
-                   int nbr_dist=nbr_pair.first;
+                     int nbr_node=nbr_pair.first;
+                      int nbr_dist=nbr_pair.second;
 
-                   if(vis[nbr_node]==false and dist[nbr_node]<source_dist)
+
+                   if(vis[nbr_node]==false)
                    {
-                        parent[nbr_node]=source_node;
-                        dist[nbr_node]=source_dist;
-                        pq.push({source_dist,nbr_node});
+                        
+                        pq.push({nbr_dist,nbr_node});
+                       
                    }
 
                }
@@ -52,8 +61,14 @@ int main()
          }
 
 
-         for (int i = 1; i < v; i++) 
-        cout << parent[i] << " - " << i <<" \n"; 
+         
+        cout<<total_dist<<"\n";
 	     return 0;
 
 }
+
+
+
+
+     
+    
