@@ -1,0 +1,1 @@
+{"name":"Local: icpcTripInterviewBit","url":"b:\\DS_ALGO\\Graphs\\icpcTripInterviewBit.cpp","tests":[{"id":1623443486162,"input":"3\n2 3 1 2 1 2 3 2\n1\n3\n1 3 1 3 2","output":""},{"id":1623448766870,"input":"","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"b:\\DS_ALGO\\Graphs\\icpcTripInterviewBit.cpp","group":"local","local":true}

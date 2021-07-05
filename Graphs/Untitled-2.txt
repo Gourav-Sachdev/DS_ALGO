@@ -1,0 +1,49 @@
+
+ void callKPartition(int index,int n,int k,int nos,vector<vector<int>>&ans)
+{
+    if(index>n)
+    {
+        if(nos==k)
+        {
+             for(int i=0;i<ans.size();i++)
+                {
+                    cout<<"i"<<". ";
+                    for(int j=0;j<ans[i].size();i++)
+                    {
+                       cout<<"["<<ans[i][j]<<", ";   
+                    }
+                    cout<<"] ";
+                }
+                cout<<endl;
+        }
+        return ;
+       
+    }
+    
+    for(int j=0;i<ans.size();j++)
+    {
+        if(ans[j].empty()==false)    //already present subset me apna element dalo
+        {
+            ans[j].push_back(index);
+            callKPartition(index+1,n,k,nos,ans);
+            ans[j].pop_back();
+            
+        }
+        else{
+            ans.push_back{};
+            callKPartition(index+1,n,k,nos+1,ans);
+            ans.pop_back();
+            break;
+        }
+    }
+}
+
+int main()
+{
+    int n,k;
+    cin>>n,k;
+    
+    vector<vector<int>>ans;
+    callKPartition(1,n,k,1,ans)
+    return 0 ;
+}
